@@ -44,6 +44,9 @@
 
             $userToResponse = findUserByEmail( $users, $data['Email'] );
 
+            $data['UserAgent'] = $_SERVER['HTTP_USER_AGENT'];
+            $data['UserIp'] = $_SERVER['REMOTE_ADDR'];
+
             if( isset($userToResponse) )
             {
                 $response = (object) 
@@ -113,6 +116,8 @@
                 {
                     $userExists = true;
 
+                    $user->UserAgent = $_SERVER['HTTP_USER_AGENT'];
+                    $user->UserIp = $_SERVER['REMOTE_ADDR'];
                     $user->VisitsCount += 1;
                     $user->EntranceTime = $data['EntranceTime'];
                     $user->IsOnline = true;
