@@ -99,6 +99,49 @@
         }
     }
 
+    // Login user and change necessary fields
+    class LoginUser extends BaseAction
+    {
+        protected function actions( $data ): object
+        {
+            $jsonfile = getDBFileContent();
+            $users = $jsonfile->users;
+
+            foreach ($users as $user) 
+            {
+                if( $user->Email === $data->Email && $user->Name === $data->Name )
+                {
+                    $userExists = true;
+
+                    $user->VisitsCount += 1;
+                    $user->EntranceTime = $data->EntranceTime;
+                    $user->IsOnline = true;
+                }
+            }
+
+            if( isset($userExists) )
+            {
+                $newArray = array( "users" => $users );
+                file_put_contents( "DB.json", json_encode( $newArray ));
+                $response = (object) 
+                [
+                    'code' => 200,
+                    'content' => 'User logged in',
+                ];
+            }
+            else
+            {
+                $response = (object) 
+                [
+                    'code' => 404,
+                    'content' => 'Not Found',
+                ];
+            }
+
+            return $response;
+        }
+    }
+
     // Send all users in DB
     class GetAllUsers extends BaseAction
     {
