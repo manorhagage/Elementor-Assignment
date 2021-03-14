@@ -42,7 +42,7 @@
             $jsonfile = getDBFileContent();
             $users = $jsonfile->users;
 
-            $userToResponse = findUserByEmail( $users, $data->Email );
+            $userToResponse = findUserByEmail( $users, $data['Email'] );
 
             if( isset($userToResponse) )
             {
@@ -109,12 +109,12 @@
 
             foreach ($users as $user) 
             {
-                if( $user->Email === $data->Email && $user->Name === $data->Name )
+                if( $user->Email === $data['Email'] && $user->Name === $data['Name'] )
                 {
                     $userExists = true;
 
                     $user->VisitsCount += 1;
-                    $user->EntranceTime = $data->EntranceTime;
+                    $user->EntranceTime = $data['EntranceTime'];
                     $user->IsOnline = true;
                 }
             }
@@ -152,7 +152,7 @@
 
             foreach ($users as $user) 
             {
-                if( $user->Email === $data->Email && $user->Name === $data->Name )
+                if( $user->Email === $data['Email'] && $user->Name === $data['Name'] )
                 {
                     $userExists = true;
 
