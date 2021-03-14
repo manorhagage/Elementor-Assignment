@@ -117,5 +117,19 @@
         }
     }
 
+    // Handle unknown requests to the server
+    class UnknownRequest extends BaseAction
+    {
+        protected function actions( $data ): object
+        {
+            $response = (object) 
+            [
+                'code' => 400,
+                'content' => 'Unknown Request',
+            ];
+
+            return $response;
+        }
+    }
 
 ?>
