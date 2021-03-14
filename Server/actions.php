@@ -1,5 +1,6 @@
 <?php
 
+    require_once('functions.php');
     abstract class BaseAction 
     {
         // Contain all the actions the class should do
