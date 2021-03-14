@@ -21,24 +21,21 @@
         break;
 
         case 'CreateNewUser':
-            $json = file_get_contents('php://input');
-            $data = json_decode( $json );
+            $data =  $_POST;
 
             $action = new CreateNewUser();
             return $action->handleRequest( $data );
         break;
 
         case 'LoginUser':
-            $json = file_get_contents('php://input');
-            $data = json_decode( $json );
+            $data =  $_POST;
 
             $action = new LoginUser();
             return $action->handleRequest( $data );
         break;
 
         case 'LogoutUser':
-            $json = file_get_contents('php://input');
-            $data = json_decode( $json );
+            $data =  $_POST;
 
             $action = new LogoutUser();
             return $action->handleRequest( $data );
