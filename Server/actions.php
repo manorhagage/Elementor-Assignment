@@ -67,6 +67,37 @@
         }
     }
 
+    // Send a user by his Email
+    class GetOneUserByEmail extends BaseAction
+    {
+        // Create new user
+        protected function actions( $data ): object
+        {
+            $jsonfile = getDBFileContent();
+            $users = $jsonfile->users;
+
+            $userToResponse = findUserByEmail( $users, $data );
+
+            if( isset($userToResponse) )
+            {
+                $response = (object) 
+                [
+                    'code' => 302,
+                    'content' => $userToResponse,
+                ];
+            }
+            else
+            {
+                $response = (object) 
+                [
+                    'code' => 404,
+                    'content' => 'Not Found',
+                ];
+            }
+
+            return $response;
+        }
+    }
 
     // Send all users in DB
     class GetAllUsers extends BaseAction
