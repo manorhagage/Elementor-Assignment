@@ -34,6 +34,39 @@
         }
     }
 
+    // Create new user and add to the DB file - if not created
+    class CreateNewUser extends BaseAction
+    {
+        protected function actions( $data ): object
+        {
+            $jsonfile = getDBFileContent();
+            $users = $jsonfile->users;
+
+            $userToResponse = findUserByEmail( $users, $data->Email );
+
+            if( isset($userToResponse) )
+            {
+                $response = (object) 
+                [
+                    'code' => 409,
+                    'content' => 'User allready exist',
+                ];
+            }
+            else
+            {
+                array_push( $jsonfile->users, $data );
+                file_put_contents( "DB.json", json_encode( $jsonfile ));
+                $response = (object) 
+                [
+                    'code' => 201,
+                    'content' => 'User created',
+                ];
+            }
+
+            return $response;
+        }
+    }
+
 
 
 ?>
