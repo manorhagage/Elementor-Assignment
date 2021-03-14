@@ -68,5 +68,23 @@
     }
 
 
+    // Send all users in DB
+    class GetAllUsers extends BaseAction
+    {
+        // Create new user
+        protected function actions( $data ): object
+        {
+            $jsonfile = getDBFileContent();
+
+            $response = (object) 
+            [
+                'code' => 200,
+                'content' => $jsonfile,
+            ];
+
+            return $response;
+        }
+    }
+
 
 ?>
