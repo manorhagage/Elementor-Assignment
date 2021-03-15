@@ -6,9 +6,10 @@ if( !sessionStorage.getItem( 'online' ) )
 
 // Values to print in the table
 const fieldsName = [ 'Name', 'Last Entrance', 'Last Time Updated', 'IP' ];
-const fieldsToPrint = [ 'Name', 'EntranceTime', 'LastUpdateTime', 'UserIp'];
+const fieldsToPrint = [ 'Name', 'EntranceTime', 'LastUpdateTime', 'UserIp' ];
 const fieldsToPrintAsTime = [ 'EntranceTime', 'LastUpdateTime' ];
 
+// Fetch users and oreder in a table
 async function fetchAndOrderUsers()
 {
     // Commit fetch request
@@ -21,6 +22,7 @@ async function fetchAndOrderUsers()
     createUserModalListener();
 }
 
+// Create user modal on click user row
 function createUserModalListener()
 {
     __('.users-row').forEach( item => 
@@ -41,23 +43,40 @@ function createUserModalListener()
     });
 }
 
-// Add welcome message
-_('#welcome-msg').innerHTML = 'Welcome ' + sessionStorage.getItem( 'online' );
+// Logoutuser
+async function logout()
+{
+    const logout = await establishRequest( 'LogoutUser', { 'Email': sessionStorage.getItem( 'email' ) });
+    sessionStorage.clear();
+    window.location = './';
+}
 
+// Add welcome message
+_( '#welcome-msg' ).innerHTML = 'Welcome ' + sessionStorage.getItem( 'online' );
+
+
+// Fetch once on load
 fetchAndOrderUsers();
 
 // // Refetch every 3 sec
 setInterval( fetchAndOrderUsers, 3000 );
 
-// logout user
-_( '#logout' ).addEventListener('click',async () =>
+
+// logout user by click logout
+_( '#logout' ).addEventListener( 'click', logout );
+
+// logout user by close window
+window.addEventListener("beforeunload", logout );
+
+
+// Close modal by click on X
+_( '.close-modal' ).addEventListener( 'click', () =>
 {
-    const logout = await establishRequest( 'LogoutUser', { 'Email': sessionStorage.getItem( 'email' ) });
-    sessionStorage.clear();
-    window.location = './';
+    _( '#modal' ).classList.add( 'hidden' );
 });
 
-_('.close-modal').addEventListener('click', () =>
+// Close modal by click on overlay
+_( '.overlay' ).addEventListener( 'click', () =>
 {
-    _('#modal').classList.add('hidden');
+    _( '#modal' ).classList.add( 'hidden' );
 });
