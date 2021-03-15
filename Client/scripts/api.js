@@ -10,7 +10,9 @@ function establishRequest( action , data='' )
 		case 'LoginUser':
 			return fetchRequest( 'POST', action, data );
 
-
+		case 'GetAllUsers':
+			return fetchRequest( 'GET', action, data );
+	
 		default:
 			console.log( 'something went wrong' );
 			break;

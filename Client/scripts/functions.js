@@ -26,3 +26,49 @@ function jsonToFormData( json )
 	return formData;
 }
 
+//order and print the data in table
+function printToTable( data ,fieldsName, fieldsToPrint, fieldsToPrintAsTime, selector)
+{
+	var str;
+	const time = new Date().toLocaleTimeString('he-IL', 
+	{ 	hour12: false, 
+		hour: "numeric", 
+		minute: "numeric",
+		second: "numeric"
+	});
+
+	str = "<table class='users-data'><thead><tr>";
+	fieldsName.forEach(element => {
+		str += "<td class='" + element.toLowerCase() +"'>" + element + " </td>";
+	});
+
+	str += "</tr><tr><td class='last-update' colspan='3'>Last update: " + time + "</td></tr></thead><tbody><tr>";
+
+	data.map(( item ) => 
+	{
+		str += "<tr>";
+		console.log( item );
+
+		for( let [ key, value ] of Object.entries( item ) )
+		{
+			if( fieldsToPrint.includes(key) )
+			{
+				if( fieldsToPrintAsTime.includes(key) )
+				{
+					value = new Date( parseInt( value )).toLocaleTimeString('he-IL', 
+					{ year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+				}
+
+				str += "<td>" + value + "</td>";		
+			}
+		}
+
+		str += "</tr>";;
+		
+	});
+	
+	str += "</tbody></table>";
+
+	_(selector).innerHTML = str;
+}
+
