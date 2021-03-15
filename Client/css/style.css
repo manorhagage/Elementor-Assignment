@@ -172,6 +172,52 @@ a
     background-color: var( --light-primary-color );
 }
 
+/* modal */
+.modal
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate( -50%, -50% );
+	width: 70vw;
+	height: 92vh;
+	max-width: 1200px;
+    max-height: 1000px;
+	background-color: #ffffff;
+	z-index: 999;
+	border-radius: 1vmin;
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-timing-function: linear;
+	animation-duration: 0.3s;
+}
+
+.overlay
+{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.7);
+    z-index: 500;
+}
+
+.modal .close-modal
+{
+	position: absolute;
+    top: 2%;
+    left: 2%;
+    font-size: 5vmin;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal .close-modal:focus
+{
+	outline: none;
+}
+
 @media screen and (max-width: 600px) 
 {
     .column-container
@@ -227,4 +273,9 @@ a
         height: 65vh;
     }
 
+}
+
+.hidden
+{
+    display: none;
 }

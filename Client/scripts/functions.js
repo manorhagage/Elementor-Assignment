@@ -38,7 +38,8 @@ function printToTable( data ,fieldsName, fieldsToPrint, fieldsToPrintAsTime, sel
 	});
 
 	str = "<table class='users-data'><thead><tr>";
-	fieldsName.forEach(element => {
+	fieldsName.map( element => 
+	{
 		str += "<td class='" + element.toLowerCase() +"'>" + element + " </td>";
 	});
 
@@ -46,8 +47,7 @@ function printToTable( data ,fieldsName, fieldsToPrint, fieldsToPrintAsTime, sel
 
 	data.map(( item ) => 
 	{
-		str += "<tr>";
-		console.log( item );
+		str += "<tr class='users-row' rel='" + item['Email'] + "'>";
 
 		for( let [ key, value ] of Object.entries( item ) )
 		{

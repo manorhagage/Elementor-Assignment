@@ -12,7 +12,21 @@
         <p id='welcome-msg'></p>
         <button id="logout" class="btn logout" type="button">Logout</button>
         <div class="users"></div>
+
+        <div id="modal" class="hidden">
+            <div class="overlay"></div>
+            <div class="modal">
+                <div class="close-modal"> X </div>
+                <h1> Just An Example </h1>
+                <span class=""> Name: <p id='name'></p></span>
+                <span class=""> Email: <p id='email'></p></span>
+                <span class=""> User Agent: <p id='user-agent'></p></span>
+                <span class=""> Entrance Time: <p id='entrance-time'></p></span>
+                <span class=""> Visits Counter: <p id='visits-count'></p></span>
+            </div>
+        </div>
     </div>
+    
 </body>
 <script src="scripts/functions.js"></script>
 <script src="scripts/api.js"></script>

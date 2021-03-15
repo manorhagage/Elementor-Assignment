@@ -15,6 +15,9 @@ function establishRequest( action , data='' )
 
 		case 'GetAllUsers':
 			return fetchRequest( 'GET', action, data );
+
+		case 'GetOneUserByEmail':
+			return fetchRequest( 'GET', action, data );
 	
 		default:
 			console.log( 'something went wrong' );
