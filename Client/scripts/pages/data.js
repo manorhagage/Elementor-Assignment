@@ -72,12 +72,20 @@ setInterval( fetchAndOrderUsers, 3000 );
 _( '#logout' ).addEventListener( 'click', logout );
 
 // logout user by close window
-window.addEventListener( 'visibilitychange', () => 
+window.addEventListener( 'visibilitychange', async () => 
 {
-    // Logout user when not focusing on window
+    // Set user as offline when not focusing on window
     if( document.visibilityState === 'hidden' )
     {
-        logout()
+        console.log('hidden');
+        const setOffline = await establishRequest( 'SetOffline', { 'Email': sessionStorage.getItem( 'email' ) });
+    }
+    
+    // Set user as online when focusing on window
+    else if( document.visibilityState === 'visible' )
+    {
+        console.log('visible');
+        const setOnline = await establishRequest( 'SetOnline', { 'Email': sessionStorage.getItem( 'email' ) });
     }
 });
 

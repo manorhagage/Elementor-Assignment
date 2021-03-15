@@ -13,6 +13,12 @@ function establishRequest( action , data='' )
 		case 'LogoutUser':
 			return fetchRequest( 'POST', action, data );
 
+		case 'SetOffline':
+			return fetchRequest( 'POST', action, data );
+
+		case 'SetOnline':
+			return fetchRequest( 'POST', action, data );
+
 		case 'GetAllUsers':
 			return fetchRequest( 'GET', action, data );
 
