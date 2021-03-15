@@ -16,15 +16,23 @@ window.addEventListener('load', async () =>
     const fieldsToPrint = [ 'Name', 'EntranceTime', 'LastUpdateTime', 'UserIp'];
     const fieldsToPrintAsTime = [ 'EntranceTime', 'LastUpdateTime' ];
 
-    // print to table
+async function fetchAndOrderUsers()
+{
+    // Commit fetch request
+    let getAllUsersReq = await establishRequest( 'GetAllUsers' );
+
+    // Print to table
     printToTable( getAllUsersReq['users'], fieldsName, fieldsToPrint, fieldsToPrintAsTime, '.users' );
 
-    // // reload every 3 sec
-    // setInterval( () => 
-    // { 
-    //     getAllUsersReq = establishRequest(action,json);
-    //     printPromiseToTable( getAllUsersReq, fieldsName, fieldsToPrint, '.users' ); 
-    // }, 3000 );
+}
+
+// Add welcome message
+_('#welcome-msg').innerHTML = 'Welcome ' + sessionStorage.getItem( 'online' );
+
+fetchAndOrderUsers();
+
+// // Refetch every 3 sec
+setInterval( fetchAndOrderUsers, 3000 );
 
     // logout user
     _( '#logout' ).addEventListener('click',async () =>
