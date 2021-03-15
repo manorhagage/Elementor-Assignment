@@ -37,15 +37,22 @@
     // Create new user and add to the DB file - if not created
     class CreateNewUser extends BaseAction
     {
+        // Validate email and name
+        protected function validation( $data ): bool
+        {
+            if ( !isset( $data ) || !filter_var( $data['Email'], FILTER_VALIDATE_EMAIL ) || preg_match('/[^a-z0-9 _]+/i', $data['Name'] ) != 0 ) 
+            {
+                return false;
+            }
+            return true;
+        }
+
         protected function actions( $data ): object
         {
             $jsonfile = getDBFileContent();
             $users = $jsonfile->users;
 
             $userToResponse = findUserByEmail( $users, $data['Email'] );
-
-            $data['UserAgent'] = $_SERVER['HTTP_USER_AGENT'];
-            $data['UserIp'] = $_SERVER['REMOTE_ADDR'];
 
             if( isset($userToResponse) )
             {
@@ -55,6 +62,8 @@
                     'content' => 'User allready exists',
                 ];
             }
+            $data['UserAgent'] = $_SERVER['HTTP_USER_AGENT'];
+            $data['UserIp'] = $_SERVER['REMOTE_ADDR'];
             
             array_push( $jsonfile->users, $data );
             file_put_contents( "DB.json", json_encode( $jsonfile ));
@@ -70,11 +79,12 @@
     // Send a user by his Email
     class GetOneUserByEmail extends BaseAction
     {
-        // Check if received email
+        // Check if received data
         protected function validation( $data ): bool
         {
             return isset( $data );
         }
+
         // Create new user
         protected function actions( $data ): object
         {
@@ -108,6 +118,12 @@
     // Login user and change necessary fields
     class LoginUser extends BaseAction
     {
+        // Check if received data
+        protected function validation( $data ): bool
+        {
+            return isset( $data );
+        }
+
         protected function actions( $data ): object
         {
             $jsonfile = getDBFileContent();
@@ -152,6 +168,12 @@
     // Logout user and change necessary fields
     class LogoutUser extends BaseAction
     {
+        // Check if received data
+        protected function validation( $data ): bool
+        {
+            return isset( $data );
+        }
+
         protected function actions( $data ): object
         {
             $jsonfile = getDBFileContent();
@@ -191,6 +213,12 @@
     // Send all users in DB
     class SetOnline extends BaseAction
     {
+        // Check if received data
+        protected function validation( $data ): bool
+        {
+            return isset( $data );
+        }
+
         protected function actions( $data ): object
         {
             $jsonfile = getDBFileContent();
