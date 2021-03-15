@@ -1,3 +1,4 @@
+const iChars = "!@#$%^&*()+=-[]\\\';,./{}|\":<>?";
 
 // get one element by CSS selector
 function _( selector )
@@ -72,3 +73,15 @@ function printToTable( data ,fieldsName, fieldsToPrint, fieldsToPrintAsTime, sel
 	_(selector).innerHTML = str;
 }
 
+// Check for special chars
+function specialChars( data )
+{
+	for ( var i = 0; i < data.length; i++ ) 
+	{
+		if ( iChars.indexOf( data.charAt( i )) != -1 ) 
+		{
+			return true;
+		}
+	}
+	return false;
+}

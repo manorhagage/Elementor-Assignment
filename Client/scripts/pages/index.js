@@ -8,6 +8,12 @@ window.addEventListener('submit', async (e) =>
     let email = _( '#Email' ).value.trim();
     let name = _( '#Name' ).value.trim();
 
+    if( specialChars( name ) )
+    {
+        creatToast( 3000, 'error', 'Error, your name can not contain special chars.');
+        return;
+    }
+
     // Create the values for login request
     let data = 
     {
