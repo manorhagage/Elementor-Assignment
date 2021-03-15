@@ -66,7 +66,7 @@ setInterval( fetchAndOrderUsers, 3000 );
 _( '#logout' ).addEventListener( 'click', logout );
 
 // logout user by close window
-window.addEventListener("beforeunload", logout );
+window.addEventListener('beforeunload', logout );
 
 
 // Close modal by click on X

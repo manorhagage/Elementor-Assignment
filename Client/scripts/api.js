@@ -20,7 +20,7 @@ function establishRequest( action , data='' )
 			return fetchRequest( 'GET', action, data );
 	
 		default:
-			console.log( 'something went wrong' );
+			console.log( 'Something went wrong' );
 			break;
 	}
 }
@@ -36,17 +36,18 @@ async function fetchRequest( method, action, data )
 		redirect: 'follow'
 	};
 
+	// Arrange data based on the method type
 	if( method === 'GET' )
 	{
-		const queryString = Object.keys( data ).map( key => ( key + '=' + data[key] ) ).join( '&' );
+		const queryString = Object.keys( data ).map( key => ( key + '=' + data[ key ] ) ).join( '&' );
 		url += queryString ? '&' + queryString : '';
 	}
 
-	// other methods, add 'data' as body
+	// Not GET, add 'data' as body
 	else
 	{
 		options.body = jsonToFormData( data );
 	}
 
-	return fetch( url, options ).then( res => res.json());
+	return fetch( url, options ).then( res => res.json() );
 }

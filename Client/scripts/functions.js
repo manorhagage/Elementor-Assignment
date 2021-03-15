@@ -1,43 +1,52 @@
 const iChars = "!@#$%^&*()+=-[]\\\';,./{}|\":<>?";
 
-// get one element by CSS selector
+// Get one element by selector
 function _( selector )
 {
 	return document.querySelector( selector );
-
 }
 
-// get all elements by CSS selector
+// Get all elements by selector
 function __( selector )
 {
 	return document.querySelectorAll( selector );
-
 }
 
-// transform json into formdata
+// Transform json into formdata
 function jsonToFormData( json )
 {
 	let formData = new FormData();
 
 	for( let key in json )
 	{
-		formData.append( key, json[key] );
+		formData.append( key, json[ key ] );
 	}
 
 	return formData;
 }
 
-//order and print the data in table
-function printToTable( data ,fieldsName, fieldsToPrint, fieldsToPrintAsTime, selector)
+// Transform timestamp to readable date
+function timestampToDate( string )
 {
-	var str;
+	return new Date( parseInt( string )).toLocaleTimeString('he-IL', 
+			{ year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+//Order and print the data in a table
+function printToTable( data , fieldsName, fieldsToPrint, fieldsToPrintAsTime, selector )
+{
+	// Table string
+	let str;
+
+	// Get and form current time
 	const time = new Date().toLocaleTimeString('he-IL', 
 	{ 	hour12: false, 
-		hour: "numeric", 
-		minute: "numeric",
-		second: "numeric"
+		hour: 'numeric', 
+		minute: 'numeric',
+		second: 'numeric'
 	});
 
+	// Fill thead
 	str = "<table class='users-data'><thead><tr>";
 	fieldsName.map( element => 
 	{
@@ -46,6 +55,7 @@ function printToTable( data ,fieldsName, fieldsToPrint, fieldsToPrintAsTime, sel
 
 	str += "</tr><tr><td class='last-update' colspan='3'>Last update: " + time + "</td></tr></thead><tbody><tr>";
 
+	// Fill tbody
 	data.map(( item ) => 
 	{
 		str += "<tr class='users-row' rel='" + item['Email'] + "'>";
@@ -54,10 +64,9 @@ function printToTable( data ,fieldsName, fieldsToPrint, fieldsToPrintAsTime, sel
 		{
 			if( fieldsToPrint.includes(key) )
 			{
-				if( fieldsToPrintAsTime.includes(key) )
+				if( fieldsToPrintAsTime.includes( key ) )
 				{
-					value = new Date( parseInt( value )).toLocaleTimeString('he-IL', 
-					{ year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+					value = timestampToDate( value );
 				}
 
 				str += "<td>" + value + "</td>";		
@@ -70,6 +79,7 @@ function printToTable( data ,fieldsName, fieldsToPrint, fieldsToPrintAsTime, sel
 	
 	str += "</tbody></table>";
 
+	// Insert into element
 	_(selector).innerHTML = str;
 }
 

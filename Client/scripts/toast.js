@@ -1,20 +1,19 @@
-function creatToast(timeToShow, type, msg) 
+// Create toast
+function creatToast( timeToShow, type, msg ) 
 {
-    var container = _('.container');
+    var container = _( '.container' );
 
-    var toast = document.createElement("div");
-    toast.setAttribute("id", "toast");
-    document.body.insertBefore(toast, container);
+    var toast = document.createElement( 'div' );
+    toast.setAttribute( 'id', 'toast' );
+    document.body.insertBefore( toast, container );
     
-    toast.appendChild(document.createTextNode(msg));
-    toast.classList.add("show");
-    toast.classList.add(type);
+    toast.appendChild( document.createTextNode( msg ) );
+    toast.classList.add( 'show' );
+    toast.classList.add( type );
   
-    // After 3 seconds, remove the show class from DIV
-    setTimeout(function()
+    // After "timeToShow" seconds, remove toast
+    setTimeout(() =>
     { 
         toast.remove();
-    }, timeToShow);
-
-
+    }, timeToShow );
 }

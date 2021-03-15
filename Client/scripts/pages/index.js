@@ -5,8 +5,8 @@ window.addEventListener('submit', async (e) =>
     e.preventDefault();
 
     // Get the values from the form
-    let email = _( '#Email' ).value.trim();
-    let name = _( '#Name' ).value.trim();
+    const email = _( '#Email' ).value.trim();
+    const name = _( '#Name' ).value.trim();
 
     if( specialChars( name ) )
     {
@@ -15,11 +15,11 @@ window.addEventListener('submit', async (e) =>
     }
 
     // Create the values for login request
-    let data = 
+    const data = 
     {
-        "Name": name,
-        "Email": email,
-        "EntranceTime": Date.now(),
+        'Name': name,
+        'Email': email,
+        'EntranceTime': Date.now(),
     }
 
     // Try to loggin user
@@ -38,8 +38,8 @@ window.addEventListener('submit', async (e) =>
     {
         // Add missing values for create request
         data.LastUpdateTime = Date.now(),
-        data.VisitsCount = "1";
-        data.IsOnline = "true";
+        data.VisitsCount = '1';
+        data.IsOnline = 'true';
 
         // Try to create new user
         const createNewUserReq = await establishRequest( 'CreateNewUser', data );
