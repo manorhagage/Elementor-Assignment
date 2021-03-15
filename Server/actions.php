@@ -7,7 +7,7 @@
         abstract protected function actions( $data ): object ;
 
         // Validate the request - return true unless change
-        protected function validation(): bool
+        protected function validation( $data ): bool
         {
             return true;
         }
@@ -23,7 +23,7 @@
         // Combine all classes
         public final function handleRequest( $data )
         {
-            if( !$this->validation() )
+            if( !$this->validation( $data ) )
             {
                 $this->response( 400 , 'Validation Error' );
             }
@@ -49,30 +49,32 @@
 
             if( isset($userToResponse) )
             {
-                $response = (object) 
+                return (object) 
                 [
                     'code' => 409,
                     'content' => 'User allready exists',
                 ];
             }
-            else
-            {
-                array_push( $jsonfile->users, $data );
-                file_put_contents( "DB.json", json_encode( $jsonfile ));
-                $response = (object) 
-                [
-                    'code' => 201,
-                    'content' => 'User created',
-                ];
-            }
-
-            return $response;
+            
+            array_push( $jsonfile->users, $data );
+            file_put_contents( "DB.json", json_encode( $jsonfile ));
+            
+            return (object) 
+            [
+                'code' => 201,
+                'content' => 'User created',
+            ];
         }
     }
 
     // Send a user by his Email
     class GetOneUserByEmail extends BaseAction
     {
+        // Check if received email
+        protected function validation( $data ): bool
+        {
+            return isset( $data );
+        }
         // Create new user
         protected function actions( $data ): object
         {
@@ -81,6 +83,7 @@
 
             $userToResponse = findUserByEmail( $users, $data );
 
+            // If user not found
             if( !isset($userToResponse) )
             {
                 return (object) 
@@ -90,6 +93,7 @@
                 ];
             }
 
+            // Response only required fields
             $fieldsToResponse = [ 'Email', 'Name', 'UserAgent', 'EntranceTime', 'VisitsCount' ];
             $response = filterArray( $userToResponse, $fieldsToResponse );
 
@@ -115,6 +119,7 @@
                 {
                     $userExists = true;
 
+                    // Update user values
                     $user->UserAgent = $_SERVER['HTTP_USER_AGENT'];
                     $user->UserIp = $_SERVER['REMOTE_ADDR'];
                     $user->VisitsCount += 1;
@@ -123,26 +128,24 @@
                 }
             }
 
-            if( isset($userExists) )
+            if( !isset($userExists) )
             {
-                $newArray = array( "users" => $users );
-                file_put_contents( "DB.json", json_encode( $newArray ));
-                $response = (object) 
-                [
-                    'code' => 200,
-                    'content' => 'User logged in',
-                ];
-            }
-            else
-            {
-                $response = (object) 
+                return (object) 
                 [
                     'code' => 404,
                     'content' => 'Not Found',
                 ];
+
             }
 
-            return $response;
+            $newArray = array( "users" => $users );
+            file_put_contents( "DB.json", json_encode( $newArray ));
+            
+            return (object) 
+            [
+                'code' => 200,
+                'content' => 'User logged in',
+            ];
         }
     }
 
@@ -164,43 +167,45 @@
                 }
             }
 
-            if( isset($userExists) )
+            // Check if user not found
+            if( !isset($userExists) )
             {
-                $newArray = array( "users" => $users );
-                file_put_contents( "DB.json", json_encode( $newArray ));
-                $response = (object) 
-                [
-                    'code' => 200,
-                    'content' => 'User logged out',
-                ];
-            }
-            else
-            {
-                $response = (object) 
+                return (object) 
                 [
                     'code' => 404,
                     'content' => 'Not Found',
                 ];
             }
 
-            return $response;
+            $newArray = array( "users" => $users );
+            file_put_contents( "DB.json", json_encode( $newArray ));
+            return (object) 
+            [
+                'code' => 200,
+                'content' => 'User logged out',
+            ];
+
         }
     }
 
     // Send all users in DB
     class GetAllUsers extends BaseAction
     {
-        // Create new user
         protected function actions( $data ): object
         {
             $jsonfile = getDBFileContent();
 
+            // Response only required fields
             $fieldsToResponse = [ 'Email', 'Name','EntranceTime', 'LastUpdateTime', 'UserIp' ];
             $response = array();
 
             foreach ($jsonfile->users as $key => $value ) 
             {
-                array_push( $response ,filterArray( $value, $fieldsToResponse ));
+                // Response only online users 
+                if( $value->IsOnline == true )
+                {
+                    array_push( $response ,filterArray( $value, $fieldsToResponse ));
+                }
             }
             
             return (object) 
@@ -216,13 +221,11 @@
     {
         protected function actions( $data ): object
         {
-            $response = (object) 
+            return (object) 
             [
                 'code' => 400,
                 'content' => 'Unknown Request',
             ];
-
-            return $response;
         }
     }
 
