@@ -77,16 +77,20 @@ window.addEventListener( 'visibilitychange', async () =>
     // Set user as offline when not focusing on window
     if( document.visibilityState === 'hidden' )
     {
-        console.log('hidden');
         const setOffline = await establishRequest( 'SetOffline', { 'Email': sessionStorage.getItem( 'email' ) });
     }
     
     // Set user as online when focusing on window
     else if( document.visibilityState === 'visible' )
     {
-        console.log('visible');
         const setOnline = await establishRequest( 'SetOnline', { 'Email': sessionStorage.getItem( 'email' ) });
     }
+});
+
+// On load set user online
+window.addEventListener( 'load', async () => 
+{
+    const setOnline = await establishRequest( 'SetOnline', { 'Email': sessionStorage.getItem( 'email' ) });
 });
 
 
