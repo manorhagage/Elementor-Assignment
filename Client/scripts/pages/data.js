@@ -72,7 +72,14 @@ setInterval( fetchAndOrderUsers, 3000 );
 _( '#logout' ).addEventListener( 'click', logout );
 
 // logout user by close window
-window.addEventListener('beforeunload', logout );
+window.addEventListener( 'visibilitychange', () => 
+{
+    // Logout user when not focusing on window
+    if( document.visibilityState === 'hidden' )
+    {
+        logout()
+    }
+});
 
 
 // Close modal by click on X
