@@ -52,7 +52,7 @@
                 $response = (object) 
                 [
                     'code' => 409,
-                    'content' => 'User allready exist',
+                    'content' => 'User allready exists',
                 ];
             }
             else
@@ -81,24 +81,23 @@
 
             $userToResponse = findUserByEmail( $users, $data );
 
-            if( isset($userToResponse) )
+            if( !isset($userToResponse) )
             {
-                $response = (object) 
-                [
-                    'code' => 302,
-                    'content' => $userToResponse,
-                ];
-            }
-            else
-            {
-                $response = (object) 
+                return (object) 
                 [
                     'code' => 404,
                     'content' => 'Not Found',
                 ];
             }
 
-            return $response;
+            $fieldsToResponse = [ 'Email', 'Name', 'UserAgent', 'EntranceTime', 'VisitsCount' ];
+            $response = filterArray( $userToResponse, $fieldsToResponse );
+
+            return (object) 
+            [
+                'code' => 302,
+                'content' => $response,
+            ];
         }
     }
 
@@ -196,13 +195,19 @@
         {
             $jsonfile = getDBFileContent();
 
-            $response = (object) 
+            $fieldsToResponse = [ 'Email', 'Name','EntranceTime', 'LastUpdateTime', 'UserIp' ];
+            $response = array();
+
+            foreach ($jsonfile->users as $key => $value ) 
+            {
+                array_push( $response ,filterArray( $value, $fieldsToResponse ));
+            }
+            
+            return (object) 
             [
                 'code' => 200,
-                'content' => $jsonfile,
+                'content' => $response,
             ];
-
-            return $response;
         }
     }
 
