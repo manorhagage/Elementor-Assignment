@@ -15,7 +15,7 @@ async function fetchAndOrderUsers()
     let getAllUsersReq = await establishRequest( 'GetAllUsers' );
 
     // Print to table
-    printToTable( getAllUsersReq['users'], fieldsName, fieldsToPrint, fieldsToPrintAsTime, '.users' );
+    printToTable( getAllUsersReq, fieldsName, fieldsToPrint, fieldsToPrintAsTime, '.users' );
 
     // Create user modal on click
     createUserModalListener();
