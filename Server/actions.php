@@ -157,7 +157,7 @@
 
             foreach ($users as $user) 
             {
-                if( $user->Email === $data['Email'] && $user->Name === $data['Name'] )
+                if( $user->Email === $data['Email'] )
                 {
                     $userExists = true;
 
