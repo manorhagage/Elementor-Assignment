@@ -40,6 +40,20 @@
             $action = new LogoutUser();
             return $action->handleRequest( $data );
         break;
+
+        case 'SetOffline':
+            $data =  $_POST;
+
+            $action = new LogoutUser();
+            return $action->handleRequest( $data );
+        break;
+
+        case 'SetOnline':
+            $data =  $_POST;
+
+            $action = new SetOnline();
+            return $action->handleRequest( $data );
+        break;
         
         default:
         $action = new UnknownRequest();

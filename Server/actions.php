@@ -189,6 +189,45 @@
     }
 
     // Send all users in DB
+    class SetOnline extends BaseAction
+    {
+        protected function actions( $data ): object
+        {
+            $jsonfile = getDBFileContent();
+            $users = $jsonfile->users;
+
+            foreach ($users as $user) 
+            {
+                if( $user->Email === $data['Email'] )
+                {
+                    $userExists = true;
+
+                    $user->IsOnline = true;
+                }
+            }
+
+            if( !isset($userExists) )
+            {
+                return (object) 
+                [
+                    'code' => 404,
+                    'content' => 'Not Found',
+                ];
+
+            }
+
+            $newArray = array( "users" => $users );
+            file_put_contents( "DB.json", json_encode( $newArray ));
+            
+            return (object) 
+            [
+                'code' => 200,
+                'content' => 'User is online in',
+            ];
+        }
+    }
+
+    // Send all users in DB
     class GetAllUsers extends BaseAction
     {
         protected function actions( $data ): object
