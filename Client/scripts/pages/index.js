@@ -44,10 +44,11 @@ window.addEventListener('submit', async (e) =>
         // Try to create new user
         const createNewUserReq = await establishRequest( 'CreateNewUser', data );
 
-        if( createNewUserReq === 'User allready exists' )
+        if( createNewUserReq !== 'User created' )
         {
             creatToast( 3000, 'error', 'Email allready in use. Use the correct Name to enter or use different Email.');
         }
+        
         else
         {
             creatToast( 3000, 'success', 'Created successfully! You are being redirected');
