@@ -24,6 +24,7 @@ window.addEventListener('submit', async (e) =>
         // Log in successfully
         creatToast( 3000, 'success', 'Enter successfully! You are being redirected');
         sessionStorage.setItem( 'online', name );
+        sessionStorage.setItem( 'email', email );
 
         setTimeout( () => { window.location = './data.html'; }, 3000 );
     }
@@ -45,6 +46,7 @@ window.addEventListener('submit', async (e) =>
         {
             creatToast( 3000, 'success', 'Created successfully! You are being redirected');
             sessionStorage.setItem( 'online', name );
+            sessionStorage.setItem( 'email', email );
 
             setTimeout( () => { window.location = './data.html'; }, 3000 );
         }

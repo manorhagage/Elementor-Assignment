@@ -27,8 +27,9 @@ window.addEventListener('load', async () =>
     // }, 3000 );
 
     // logout user
-    _( '#logout' ).addEventListener('click', e =>
+    _( '#logout' ).addEventListener('click',async () =>
     {
+        const logout = await establishRequest( 'LogoutUser', { 'Email': sessionStorage.getItem( 'email' ) });
         sessionStorage.clear();
         window.location = './';
     });

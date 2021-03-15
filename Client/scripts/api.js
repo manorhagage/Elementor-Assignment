@@ -10,6 +10,9 @@ function establishRequest( action , data='' )
 		case 'LoginUser':
 			return fetchRequest( 'POST', action, data );
 
+		case 'LogoutUser':
+			return fetchRequest( 'POST', action, data );
+
 		case 'GetAllUsers':
 			return fetchRequest( 'GET', action, data );
 	
@@ -41,8 +44,6 @@ async function fetchRequest( method, action, data )
 	{
 		options.body = jsonToFormData( data );
 	}
-
-	console.log( data )
 
 	return fetch( url, options ).then( res => res.json());
 }
