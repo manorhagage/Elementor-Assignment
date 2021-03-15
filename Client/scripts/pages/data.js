@@ -41,7 +41,7 @@ function createUserModalListener()
             _('#name').innerHTML = getUser.Name;
             _('#email').innerHTML = getUser.Email;
             _('#user-agent').innerHTML = getUser.UserAgent;
-            _('#entrance-time').innerHTML = getUser.EntranceTime;
+            _('#entrance-time').innerHTML = timestampToDate( getUser.EntranceTime );
             _('#visits-count').innerHTML = getUser.VisitsCount;
     
             _('#modal').classList.remove('hidden');
