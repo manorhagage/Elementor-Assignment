@@ -53,7 +53,7 @@ function printToTable( data , fieldsName, fieldsToPrint, fieldsToPrintAsTime, se
 		str += "<td class='" + element.toLowerCase() +"'>" + element + " </td>";
 	});
 
-	str += "</tr><tr><td class='last-update' colspan='3'>Last update: " + time + "</td></tr></thead><tbody><tr>";
+	str += "</tr><tr><td class='last-update' colspan='4'>Last update: " + time + "<div class='loader'></div></div></td></tr></thead><tbody><tr>";
 
 	// Fill tbody
 	data.map(( item ) => 

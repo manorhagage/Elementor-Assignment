@@ -165,6 +165,27 @@ a
 {
     background-color: var( --secondary-color );
     text-align: center;
+    transition: 0.3s;
+}
+
+.users-data thead .last-update .loader
+{
+    display: inline-block;
+    margin-left: 2vmin;
+    width: 2.5vmin;
+    height: 2.5vmin;
+    border-radius: 100%;
+    border: 2px solid var( --primary-color );
+    border-top-color: transparent;
+    animation-name: spin;
+    animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	animation-duration: 0.2s;
+}
+
+.users-data thead .last-update .loader.hide
+{
+    display: none;
 }
 
 .users-data tbody tr:nth-child( 2n )
@@ -278,4 +299,12 @@ a
 .hidden
 {
     display: none;
+}
+
+@keyframes spin 
+{
+	100% 
+    {
+		transform: rotate( 360deg );
+	}
 }

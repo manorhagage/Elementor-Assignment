@@ -12,8 +12,14 @@ const fieldsToPrintAsTime = [ 'EntranceTime', 'LastUpdateTime' ];
 // Fetch users and oreder in a table
 async function fetchAndOrderUsers()
 {
+    _('.loader').classList.remove('hide');
     // Commit fetch request
     let getAllUsersReq = await establishRequest( 'GetAllUsers' );
+
+    setTimeout( () => 
+    { 
+        _('.loader').classList.add('hide'); 
+    }, 600 );
 
     // Print to table
     printToTable( getAllUsersReq, fieldsName, fieldsToPrint, fieldsToPrintAsTime, '.users' );
