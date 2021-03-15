@@ -1,0 +1,360 @@
+@import './toast';
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+$primary-color: #FE5454;
+$light-primary-color: rgba(254, 84, 84, 0.4);
+$secondary-color: #F7F8F9;
+$textcolor: #000000;
+
+* 
+{ 
+    -moz-box-sizing: border-box; 
+    -webkit-box-sizing: border-box; 
+    box-sizing: border-box; 
+}
+
+html
+{
+    font-family: 'Open Sans', sans-serif;
+}
+  
+body
+{
+    margin: 0;
+    padding: 0;
+    background-color: $secondary-color;
+}
+
+h1
+{
+    font-weight: 900;
+    font-size: 10vmin;
+    color: $primary-color;
+    margin: 2vmin;
+    text-align: center;
+}
+
+a
+{
+    color: $primary-color;
+}
+
+.text-input
+{
+    border: 1px solid $primary-color;
+    border-radius: 1vmin;
+    padding: 2vmin;
+    width: 45vmin;
+    background-color: none;
+    color: $primary-color;
+    box-shadow: 0 0 2px 0 $primary-color;
+}
+
+.text-input:focus
+{
+    outline: none;
+}
+
+.btn
+{
+    border: 1px solid $primary-color;
+    border-radius: 1vmin;
+    padding: 2vmin;
+    width: 25vmin;
+    background-color: $primary-color;
+    box-shadow: 0 0 2px 0 $primary-color;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:focus
+    {
+        outline: none;
+    }
+
+    &:hover
+    {
+        transform: translateY( -1vmin );
+    }
+}
+
+.container
+{
+    position: relative;
+	height: 90vh;
+    width: 85vw;
+    margin: 5vh auto;
+    padding: 8vmin;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: center;
+    align-self: center;
+    overflow: hidden;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.7);
+    border-radius: 1vmin;
+}
+
+.column-container
+{
+    flex-direction: column;
+}
+
+.form
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 50%;
+}
+
+.side-img
+{
+    width: 50%;
+}
+
+/* index page */
+
+.login-form
+{
+    height: 60vh;
+    min-height: 330px;
+}
+
+/* data page */
+
+.users
+{
+    height: 50vh;
+    overflow: auto;
+    width: 80%;
+    margin-top: 2vmin;
+    column-width: 33%;
+
+    .users-data
+    {
+        width: 100%;
+        border-collapse: collapse;
+        
+        td
+        {
+            padding: 1vmin;
+        }
+
+        thead
+        {
+            background-color: $primary-color;
+
+            .last-update
+            {
+                background-color: $secondary-color;
+                text-align: center;
+                transition: 0.3s;
+
+                .loader
+                {
+                    display: inline-block;
+                    margin-left: 2vmin;
+                    width: 2.5vmin;
+                    height: 2.5vmin;
+                    border-radius: 100%;
+                    border: 2px solid $primary-color;
+                    border-top-color: transparent;
+                    animation-name: spin;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: linear;
+                    animation-duration: 0.2s;
+                }
+
+                .loader.hide
+                {
+                    display: none;
+                }
+            }
+        }
+
+        
+        tbody tr
+        {
+            cursor: pointer;
+            transition: 0.3s;
+
+            &:nth-child( 2n )
+            {
+                background-color: $light-primary-color;
+            }
+
+            &:hover
+            {
+                background-color: $primary-color;
+            }
+        }
+    }
+}
+
+
+/* modal */
+.modal
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate( -50%, -50% );
+	width: 70vw;
+	height: 92vh;
+	max-width: 1200px;
+    max-height: 1000px;
+	background-color: #ffffff;
+	z-index: 999;
+	border-radius: 1vmin;
+    display: flex;
+    flex-direction: column;
+    padding: 3vmin;
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-timing-function: linear;
+	animation-duration: 0.3s;
+
+    .close-modal
+    {
+        position: absolute;
+        top: 2%;
+        left: 2%;
+        font-size: 5vmin;
+        font-weight: bold;
+        cursor: pointer;
+
+        &:focus
+        {
+            outline: none;
+        }
+    }
+    
+    h2
+    {
+        color: $primary-color;
+        font-size: 6vmin;
+        text-align: center;
+        margin-bottom: 2vmin;
+    }
+
+    .title
+    {
+        font-size: larger;
+        font-weight: bold;
+        margin: 1vmin;
+
+        label
+        {
+            font-size: medium;
+            font-weight: normal;
+            display: block;
+        }
+    }
+}
+
+.overlay
+{
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0,0,0,0.7);
+    z-index: 500;
+    animation-name: fadeInOpacity;
+	animation-timing-function: linear;
+	animation-duration: 0.3s;
+}
+
+
+@media screen and (max-width: 600px) 
+{
+    .column-container
+    {
+        width: 95vw;
+    }
+
+    h1
+    {
+        font-size: 15vmin;
+    }
+
+    .text-input
+    {
+        width: 85%;
+    }
+
+    .btn
+    {
+        width: 40vmin;
+    }
+
+    .form
+    {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .side-img
+    {
+        position: absolute;
+        inset: 0;
+        opacity: 0.1;
+        z-index: -1;
+    }
+
+    .change-form
+    {
+        font-size: 4vmin;
+    }
+
+    /* register page */
+    
+    .register-form
+    {
+        height: 65vh;
+    }
+
+    /* data page */
+    .users
+    {
+        width: 100%;
+        height: 65vh;
+    }
+
+    /* modal */
+    .modal
+    {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+    }
+
+}
+
+.hidden
+{
+    display: none;
+}
+
+@keyframes fadeInOpacity 
+{
+	0% 
+    {
+		opacity: 0;
+	}
+	100% 
+    {
+		opacity: 1;
+	}
+}
+
+@keyframes spin 
+{
+	100% 
+    {
+		transform: rotate( 360deg );
+	}
+}

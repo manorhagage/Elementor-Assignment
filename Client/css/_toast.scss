@@ -1,0 +1,67 @@
+$top: 6%;
+
+#toast 
+{
+    visibility: hidden; 
+    width: 60vmin;
+    padding: 2vmin 0;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+    position: fixed;
+    z-index: 1;
+    top: $top;
+    left: 50%;
+    transform: translateX( -50% );
+    border-radius: 1rem;
+    background-color: #333;
+    color: #fff;
+
+    &.show 
+    {
+        visibility: visible; 
+        -webkit-animation: fadein 0.5s, fadeout 0.5s 4.5s;
+        animation: fadein 0.5s, fadeout 0.5s 4.5s;
+    }
+
+    &.info 
+    {
+        background-color: #ffffff;
+    }
+
+    &.error 
+    {
+        background-color: #e92525;
+    }
+
+    &.success 
+    {
+        background-color: #1e9e1e;
+    }
+}
+
+  
+@-webkit-keyframes fadein 
+{
+    from {top: 0; opacity: 0;}
+    to {top: $top; opacity: 1;}
+}
+
+@keyframes fadein 
+{
+    from {top: 0; opacity: 0;}
+    to {top: $top; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout 
+{
+    from {top: $top; opacity: 1;}
+    to {top: 0; opacity: 0;}
+}
+
+@keyframes fadeout 
+{
+    from {top: $top; opacity: 1;}
+    to {top: 0; opacity: 0;}
+}
+  
