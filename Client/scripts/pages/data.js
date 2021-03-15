@@ -7,8 +7,8 @@ if( !sessionStorage.getItem( 'online' ) )
 // Submit button action
 window.addEventListener('load', async () =>
 {
-    // commit fetch request
-    const getAllUsersReq = await establishRequest( 'GetAllUsers' );
+    // Add welcome message
+    _('#welcome-msg').innerHTML = 'Welcome ' + sessionStorage.getItem( 'online' );
 
     
     // values to print in the table
