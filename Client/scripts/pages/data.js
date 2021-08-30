@@ -54,7 +54,7 @@ async function logout()
 {
     const logout = await establishRequest( 'LogoutUser', { 'Email': sessionStorage.getItem( 'email' ) });
     sessionStorage.clear();
-    window.location = './';
+    window.location = './index.html';
 }
 
 // Add welcome message
